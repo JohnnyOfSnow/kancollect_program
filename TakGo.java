@@ -1,33 +1,34 @@
 package timerTask;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
-import javax.swing.JList;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.Color;
-import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import java.util.*;
+import javax.swing.SwingConstants;
 
 public class TakGo extends JFrame {
-	Timer timer2;
-	Timer timer3;
-	Timer timer4;
+	Timer timer2; // for the second team expedition timer
+	Timer timer3; // for the third team expedition timer
+	Timer timer4; // for the forth team expedition timer
+	Timer timer5; // show the current time 
 	int twoTeamSec;
 	int threeTeamSec;
 	int fourTeamSec;
@@ -42,6 +43,7 @@ public class TakGo extends JFrame {
 	JTextField textField_7;
 	JTextField textField_8;
 	JLabel lblNewLabel_1;
+	JLabel lblNewLabel_2;
 	JLabel label_14;
 	JRadioButton radioButton;
 	JRadioButton radioButton_1;
@@ -184,6 +186,9 @@ public class TakGo extends JFrame {
 		timer2 = new Timer();
 		timer3 = new Timer();
 		timer4 = new Timer();
+		timer5 = new Timer();
+		
+		timer5.schedule(new CurrentDateTask(), 1000, 1000);
 		
 		JButton button = new JButton("\u958B\u59CB");
 		button.addActionListener(new ActionListener() {
@@ -453,6 +458,17 @@ public class TakGo extends JFrame {
 		});
 		button_5.setBounds(268, 208, 87, 23);
 		contentPane.add(button_5);
+		
+		lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_2.setFont(new Font("新細明體", Font.BOLD, 18));
+		lblNewLabel_2.setBounds(92, 281, 263, 45);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("現在時間：");
+		lblNewLabel_3.setFont(new Font("新細明體", Font.BOLD, 14));
+		lblNewLabel_3.setBounds(162, 281, 80, 15);
+		contentPane.add(lblNewLabel_3);
 		    
 		
 	}
@@ -540,6 +556,22 @@ public class TakGo extends JFrame {
 				label_15.setForeground(Color.RED);
 				label_15.setText("遠征回來");
 			}
+	    }
+	}
+	
+	private class CurrentDateTask extends TimerTask {
+		
+		CurrentDateTask(){
+			
+			
+		}
+		
+		
+		public void run() {		
+			SimpleDateFormat sdFormat = new SimpleDateFormat("MM / dd   hh:mm:ss");
+			java.util.Date current=new java.util.Date();
+			String strDate = sdFormat.format(current);
+			lblNewLabel_2.setText(strDate);
 	    }
 	}
 }
