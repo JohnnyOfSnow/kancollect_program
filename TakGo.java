@@ -23,6 +23,8 @@ import javax.swing.border.EmptyBorder;
 
 import java.util.*;
 import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 public class TakGo extends JFrame {
 	Timer timer2; // for the second team expedition timer
@@ -44,7 +46,12 @@ public class TakGo extends JFrame {
 	JTextField textField_8;
 	JLabel lblNewLabel_1;
 	JLabel lblNewLabel_2;
+	JLabel lblNewLabel_4;
+	JLabel lblNewLabel_6;
 	JLabel label_14;
+	JLabel label_18;
+	JLabel label_19;
+	JTextPane textPane;
 	JRadioButton radioButton;
 	JRadioButton radioButton_1;
 	JRadioButton radioButton_2;
@@ -88,7 +95,7 @@ public class TakGo extends JFrame {
 			"東京急行",
 			"東京急行(弐)",
 			"遠洋潜水艦作戦",
-			"水上機前線輸送",};
+			"水上機前線輸送"};
 	String[] hourArray = {"0","0","0","0","1",
 			"0","1","3","4","1",
 			"5","8","4","6","12",
@@ -115,6 +122,128 @@ public class TakGo extends JFrame {
 			"0","0","0","0","0"};
 	JLabel label_11;
 	JLabel label_15;
+	String[] LeaderInfoArray = {"旗艦Lv1",
+			"旗艦Lv2",
+			"旗艦Lv3",
+			"旗艦Lv3",
+			"旗艦Lv3",
+			"旗艦Lv4",
+			"旗艦Lv5",
+			"旗艦Lv6", // no 8
+			"旗艦Lv3",
+			"旗艦Lv3",
+			"旗艦Lv6",
+			"旗艦Lv4",
+			"旗艦Lv5",
+			"旗艦Lv6",
+			"旗艦Lv9",
+			"旗艦Lv10", // no 16
+			"旗艦Lv20",
+			"旗艦Lv15",
+			"旗艦Lv20",
+			"旗艦Lv1",
+			"旗艦Lv15,艦隊合計Lv30",
+			"旗艦Lv30,艦隊合計Lv45",
+			"旗艦Lv50,艦隊合計Lv200",
+			"旗艦Lv50,艦隊合計Lv200", // no 24
+			"旗艦Lv25",
+			"旗艦Lv30",
+			"旗艦Lv1",
+			"旗艦Lv30",
+			"旗艦Lv50",
+			"旗艦Lv55",
+			"旗艦Lv60,艦隊合計Lv200",
+			"旗艦Lv5", // no 32
+			"",
+			"",
+			"旗艦Lv40",
+			"旗艦Lv30",
+			"旗艦Lv50,艦隊合計Lv200",
+			"旗艦Lv65,艦隊合計Lv240",
+			"旗艦Lv3,艦隊合計Lv180",
+			"旗艦Lv25,艦隊合計Lv150"};
+	String[] combatInfoArray = {"最低2隻。艦種自由",
+			"最低4。艦種自由",
+			"最低3。艦種自由",
+			"軽1、駆2必要",
+			"軽1、駆2、他1必要",
+			"最低4。艦種自由",
+			"全6。艦種自由",
+			"全6。艦種自由",
+			"軽1、駆2、他1必要",
+			"軽2、他1必要",
+			"駆2、他2必要",
+			"駆2、他2必要",
+			"軽1、駆4、他1必要",
+			"軽1、駆3、他2必要",
+			"空母(軽母,水母可/潜母不可)2、駆2、他2必要",
+			"軽1、駆2、他3必要",
+			"軽1、駆3、他2必要",
+			"空母(軽母,水母可/潜母、あきつ丸不可)3、駆2、他1必要",
+			"航戦2、駆2、他2必要",
+			"潜1(潜母可/潜水母艦不可)、軽1必要",
+			"軽1、駆4必要，3ドラム缶(輸送用)",
+			"重1、軽1、駆2、他2必要",
+			"航戦2、駆2、他2必要",
+			"軽1(旗艦固定)、駆4、他1必要",
+			"重2、駆2必要",
+			"空母(軽母,水母可/潜母不可)1、軽1、駆2必要",
+			"潜2(潜母可/潜水母艦不可)必要",
+			"潜3(潜母可/潜水母艦不可)必要",
+			"潜3(潜母可/潜水母艦不可)必要",
+			"潜4(潜母可/潜水母艦不可)必要",
+			"潜4(潜母可/潜水母艦不可)必要",
+			"練巡1(旗艦固定),駆2必要",
+			"駆2必要",
+			"駆2必要",
+			"空母(装母,軽母,水母可/潜母不可)2、重1、駆1、他2必要",
+			"水母(空母不可,軽母不可,潜母不可)2、軽1、駆2、他2必要",
+			"軽1、駆5必要，4ドラム缶(輸送用)",
+			"駆5、他1必要，8ドラム缶(輸送用)",
+			"潜水母艦1、潜4(潜空母可)必要",
+			"軽1(旗艦固定)、水母2、駆2、他1必要"};
+	
+	String[] sourceInfoArray = {"弾薬×30",
+			"弾薬×100、鋼材×30、高速修復材×0,1",
+			"燃料×30、弾薬×30、鋼材×40",
+			"弾薬×60、高速修復材×0,1、家具箱(小)×0,1",
+			"燃料×200、弾薬×200、鋼材×20、ボーキサイト×20",
+			"ボーキサイト×80、家具箱(小)×0,1",
+			"鋼材×50、ボーキサイト×30、高速建造材×0,1",
+			"燃料×50、弾薬×100、鋼材×50、ボーキサイト×50\n高速建造材×0,1,2、開発資材×0,1",
+			"燃料×350、家具箱(小)×0,1、高速修復材×0,1,2",
+			"弾薬×50、ボーキサイト×30、高速修復材×0,1\n高速建造材×0,1",
+			"ボーキサイト×250、家具箱(小)×0,1\n高速修復材×0,1",
+			"燃料×50、弾薬×250、鋼材×200、ボーキサイト×50\n家具箱(中)×0,1、開発資材×0,1",
+			"燃料×240、弾薬×300、高速修復材×0,1,2\n家具箱(小)×0,1",
+			"弾薬×240、鋼材×200、高速修復材×0,1\n開発資材×0,1",
+			"鋼材×300、ボーキサイト×400、家具箱(大)×0,1\n開発資材×0,1",
+			"燃料×500、弾薬×500、鋼材×200、ボーキサイト×200\n高速建造材×0,1,2、開発資材×0,1,2",
+			"燃料×70、弾薬×70、鋼材×50",
+			"鋼材×300、ボーキサイト×100、高速修復材×0,1",
+			"燃料×400、鋼材×50、ボーキサイト×30\n家具箱(小)×0,1、開発資材×0,1",
+			"鋼材×150、開発資材×0,1、家具箱(小)×0,1",
+			"燃料×320、弾薬×270、家具箱(小)×0,1",
+			"弾薬×10",
+			"弾薬×20、ボーキサイト×100",
+			"燃料×500、ボーキサイト×150、開発資材×0,1,2\n高速修復材×0,1",
+			"燃料×900、鋼材×500",
+			"ボーキサイト×900、高速修復材×0,1,2,3",
+			"鋼材×800、開発資材×0,1、家具箱(小)×0,1,2",
+			"鋼材×900、ボーキサイト×350、開発資材×0,1,2\n家具箱(中)×0,1,2",
+			"ボーキサイト×100、開発資材×0,1、家具箱(小)×0,1",
+			"ボーキサイト×100、開発資材×0,1,2,3",
+			"弾薬×30、家具箱(小)×0,1",
+			"燃料×50、弾薬×50、鋼材×50、ボーキサイト×50\n家具箱(大)×0,1、開発資材×0,1,2,3",
+			"",
+			"",
+			"鋼材×240、ボーキサイト×280、家具箱(小)×0,1,2\n開発資材×0,1",
+			"燃料×480、鋼材×200、ボーキサイト×200\n家具箱(中)×0,1,2、高速修復材×0,1",
+			"弾薬×380、鋼材×270、家具箱(小)×0,1",
+			"燃料×420、鋼材×200、家具箱(小)×0,1",
+			"鋼材×300、高速修復材×0,1,2、家具箱(中)×0,1",
+			"燃料×300、弾薬×300、ボーキサイト×100\n家具箱(小)×0,1,2,3、高速修復材×0,1"};
+	
 	/**
 	 * Launch the application.
 	 */
@@ -137,7 +266,7 @@ public class TakGo extends JFrame {
 	public TakGo() {
 		setTitle("艦隊これくしょん -艦これ遠征");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 369, 370);
+		setBounds(100, 100, 364, 477);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 204, 153));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -370,24 +499,27 @@ public class TakGo extends JFrame {
 		contentPane.add(button_4);
 		
 		radioButton = new JRadioButton("\u7B2C2\u8266\u968A");
+		radioButton.setFont(new Font("新細明體", Font.BOLD, 12));
 		radioButton.setBackground(new Color(255, 204, 153));
-		radioButton.setBounds(10, 250, 80, 21);
+		radioButton.setBounds(10, 239, 80, 21);
 		contentPane.add(radioButton);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"練習航海", "長距離練習航海", "警備任務", "対潜警戒任務", "海上護衛任務", "防空射撃演習", "観艦式予行", "観艦式", "タンカー護衛任務", "強行偵察任務", "ボーキサイト輸送任務", "資源輸送任務", "鼠輸送作戦", "包囲陸戦隊撤収作戦", "囮機動部隊支援作戦", "艦隊決戦援護作戦", "敵地偵察作戦", "航空機輸送作戦", "北号作戦", "潜水艦哨戒任務", "北方鼠輸送作戦", "艦隊演習", "航空戦艦運用演習", "北方航路海上護衛", "通商破壊作戦", "敵母港空襲作戦", "潜水艦通商破壊作戦", "西方海域封鎖作戦", "潜水艦派遣演習", "潜水艦派遣作戦", "海外艦との接触", "遠洋練習航海", "前衛支援任務", "艦隊決戦支援任務", "MO作戦", "水上機基地建設", "東京急行", "東京急行(弐)", "遠洋潜水艦作戦", "水上機前線輸送"}));
 		comboBox.setToolTipText("");
-		comboBox.setBounds(92, 250, 146, 21);
+		comboBox.setBounds(92, 239, 146, 21);
 		contentPane.add(comboBox);
 		
 		radioButton_1 = new JRadioButton("\u7B2C3\u8266\u968A");
+		radioButton_1.setFont(new Font("新細明體", Font.BOLD, 12));
 		radioButton_1.setBackground(new Color(255, 204, 153));
-		radioButton_1.setBounds(10, 273, 80, 21);
+		radioButton_1.setBounds(10, 262, 80, 21);
 		contentPane.add(radioButton_1);
 		
 		radioButton_2 = new JRadioButton("\u7B2C4\u8266\u968A");
+		radioButton_2.setFont(new Font("新細明體", Font.BOLD, 12));
 		radioButton_2.setBackground(new Color(255, 204, 153));
-		radioButton_2.setBounds(10, 296, 80, 21);
+		radioButton_2.setBounds(10, 285, 80, 21);
 		contentPane.add(radioButton_2);
 		comboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -403,6 +535,10 @@ public class TakGo extends JFrame {
                 int index = 0;
                 while(flag){
                 	if(selected.toString().equals(combatArray[index])){
+                		lblNewLabel_4.setText(combatArray[index]);
+                		label_19.setText(LeaderInfoArray[index]);
+                		lblNewLabel_6.setText(combatInfoArray[index]);
+                		textPane.setText(sourceInfoArray[index]);
                 		if(radioButton.isSelected()){
                 			textField.setText(hourArray[index]);
                 			textField_1.setText(minArray[index]);
@@ -462,13 +598,69 @@ public class TakGo extends JFrame {
 		lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2.setFont(new Font("新細明體", Font.BOLD, 18));
-		lblNewLabel_2.setBounds(92, 281, 263, 45);
+		lblNewLabel_2.setBounds(92, 270, 263, 45);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("現在時間：");
 		lblNewLabel_3.setFont(new Font("新細明體", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(162, 281, 80, 15);
+		lblNewLabel_3.setBounds(158, 270, 80, 15);
 		contentPane.add(lblNewLabel_3);
+		
+		JLabel label_16 = new JLabel("提督選擇的遠征為：");
+		label_16.setFont(new Font("新細明體", Font.BOLD, 14));
+		label_16.setBounds(10, 312, 150, 21);
+		contentPane.add(label_16);
+		
+		lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setForeground(new Color(0, 0, 128));
+		lblNewLabel_4.setFont(new Font("新細明體", Font.BOLD, 12));
+		lblNewLabel_4.setBounds(147, 312, 208, 21);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("需求為：");
+		lblNewLabel_5.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_5.setBounds(10, 332, 56, 21);
+		contentPane.add(lblNewLabel_5);
+		
+		lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setForeground(new Color(0, 0, 128));
+		lblNewLabel_6.setFont(new Font("新細明體", Font.BOLD, 12));
+		lblNewLabel_6.setBounds(10, 354, 345, 21);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel label_17 = new JLabel("獲取資源為：");
+		label_17.setFont(new Font("新細明體", Font.BOLD, 13));
+		label_17.setBounds(10, 373, 94, 20);
+		contentPane.add(label_17);
+		
+		label_18 = new JLabel("");
+		label_18.setBounds(102, 353, 253, 20);
+		contentPane.add(label_18);
+		
+		JButton btnNewButton = new JButton("清除資訊");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lblNewLabel_4.setText("");
+        		label_19.setText("");
+        		lblNewLabel_6.setText("");
+        		textPane.setText("");
+			}
+		});
+		btnNewButton.setBounds(248, 235, 107, 29);
+		contentPane.add(btnNewButton);
+		
+		label_19 = new JLabel("");
+		label_19.setForeground(new Color(0, 0, 128));
+		label_19.setFont(new Font("新細明體", Font.BOLD, 12));
+		label_19.setBounds(66, 332, 280, 21);
+		contentPane.add(label_19);
+		
+		textPane = new JTextPane();
+		textPane.setFont(new Font("新細明體", Font.BOLD, 12));
+		textPane.setEditable(false);
+		textPane.setForeground(new Color(0, 128, 0));
+		textPane.setBounds(10, 394, 341, 39);
+		contentPane.add(textPane);
 		    
 		
 	}
