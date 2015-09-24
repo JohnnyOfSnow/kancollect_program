@@ -1,5 +1,5 @@
 # kancollect_program
-![alt tag](https://cloud.githubusercontent.com/assets/6151191/9974277/6334757c-5ec2-11e5-9963-491bcb06d418.JPG)
+![alt tag](https://cloud.githubusercontent.com/assets/6151191/10076098/845b94dc-6314-11e5-8dd8-680e317bcb64.JPG)
 
 #Advance preparation:
 
